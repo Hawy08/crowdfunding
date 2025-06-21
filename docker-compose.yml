@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  client:
+    build:
+      context: ./client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+    command: ["npm", "run", "dev", "--", "--host"]
+    depends_on:
+      - crowdweb3
+    networks:
+      - crowdfundnet
+
+  crowdweb3:
+    build:
+      context: ./crowdweb3
+    volumes:
+      - ./crowdweb3:/app
+    
+    working_dir: /app
+    command: ["npx", "hardhat", "node"]
+    ports:
+      - "8545:8545"
+    networks:
+      - crowdfundnet
+networks:
+    crowdfundnet:
+      driver: bridge
