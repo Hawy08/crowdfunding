@@ -12,6 +12,9 @@ services:
       - crowdweb3
     networks:
       - crowdfundnet
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
 
   crowdweb3:
     build:
