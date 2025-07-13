@@ -38,6 +38,17 @@ module.exports = {
   },
   solidity: {
     version: '0.8.23',
+    defaultNetwork: 'zkSyncSepoliaTestnet',
+    networks: {
+      hardhat: {},
+      zkSyncSepoliaTestnet: {
+        url: 'https://sepolia.era.zksync.dev',
+        ethNetwork: 'sepolia',
+        zksync: true,
+        chainId: 300,
+        accounts: [`0x${process.env.PRIVATE_KEY}`],
+      },
+    },
     settings: {
       optimizer: {
         enabled: true,
