@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('@nomicfoundation/hardhat-toolbox');
 require('@matterlabs/hardhat-zksync-solc');
 require('@matterlabs/hardhat-zksync-verify');
@@ -10,15 +11,22 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
+        runs: 200,
       },
     },
   },
   networks: {
+    hardhat: {},
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
+    },
     zkSyncSepoliaTestnet: {
       url: 'https://sepolia.era.zksync.dev',
       ethNetwork: 'sepolia',
       zksync: true,
       chainId: 300,
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
       verifyURL:
         'https://explorer.sepolia.era.zksync.dev/contract_verification',
     },
@@ -27,34 +35,29 @@ module.exports = {
       ethNetwork: 'mainnet',
       zksync: true,
       chainId: 324,
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
       verifyURL:
         'https://zksync2-mainnet-explorer.zksync.io/contract_verification',
     },
   },
-  paths: {
-    artifacts: './artifacts-zk',
-    cache: './cache-zk',
-    sources: './contracts',
-    tests: './test',
+
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
   },
+
   solidity: {
     version: '0.8.23',
-    defaultNetwork: 'zkSyncSepoliaTestnet',
-    networks: {
-      hardhat: {},
-      zkSyncSepoliaTestnet: {
-        url: 'https://sepolia.era.zksync.dev',
-        ethNetwork: 'sepolia',
-        zksync: true,
-        chainId: 300,
-        accounts: [`0x${process.env.PRIVATE_KEY}`],
-      },
-    },
     settings: {
       optimizer: {
         enabled: true,
         runs: 200,
       },
     },
+  },
+  paths: {
+    sources: './contracts',
+    tests: './test',
+    cache: './cache-zk',
+    artifacts: './artifacts-zk',
   },
 };
