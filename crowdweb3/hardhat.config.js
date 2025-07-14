@@ -19,14 +19,14 @@ module.exports = {
     hardhat: {},
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-      accounts: [`0x${process.env.PRIVATE_KEY}`],
+      accounts: [process.env.PRIVATE_KEY],
     },
     zkSyncSepoliaTestnet: {
       url: 'https://sepolia.era.zksync.dev',
       ethNetwork: 'sepolia',
       zksync: true,
       chainId: 300,
-      accounts: [`0x${process.env.PRIVATE_KEY}`],
+      accounts: [process.env.PRIVATE_KEY],
       verifyURL:
         'https://explorer.sepolia.era.zksync.dev/contract_verification',
     },
@@ -35,7 +35,7 @@ module.exports = {
       ethNetwork: 'mainnet',
       zksync: true,
       chainId: 324,
-      accounts: [`0x${process.env.PRIVATE_KEY}`],
+      accounts: [process.env.PRIVATE_KEY],
       verifyURL:
         'https://zksync2-mainnet-explorer.zksync.io/contract_verification',
     },
