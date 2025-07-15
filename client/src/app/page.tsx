@@ -21,7 +21,7 @@ export default function Home() {
           />
         </div>
 
-        <ThirdwebResources />
+        <ThirdwebResources /> 
       </div>
     </main>
   );
