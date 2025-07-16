@@ -1,0 +1,32 @@
+# Node modules (they will be installed inside Docker)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Next.js build output
+.next
+out
+
+# Local env files (handled separately if needed)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# IDE/editor configs
+.vscode
+.idea
+*.swp
