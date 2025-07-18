@@ -1,10 +1,7 @@
+"use client";
 // pages/create-campaign.tsx
 import { useState } from "react";
-import {
-  useContractWrite,
-  ConnectWallet,
-} from "thirdweb/react";
-import { useContract } from "thirdweb/react/hooks";
+import { useContract, useContractWrite, ConnectWallet } from "@thirdweb-dev/react";
 
 export default function CreateCampaign() {
   const contractAddress = "0x7104Ffa2e8547C37336AE3a089169B9efb5F7f08"; // Your contract address
