@@ -7,10 +7,11 @@ export default function CreateCampaign() {
   const contractAddress = "0x7104Ffa2e8547C37336AE3a089169B9efb5F7f08"; // Your contract address
   const { contract } = useContract(contractAddress);
 
-  const { mutateAsync: createCampaign, isLoading } = useContractWrite(
+  const { mutateAsync: createCampaign, status } = useContractWrite(
     contract,
     "createCampaign" // Replace with your actual contract method
   );
+  const isLoading = status === "loading";
 
   const [form, setForm] = useState({
     title: "",
