@@ -21,14 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <QueryProvider> */}
-        <ThirdwebProvider
-          activeChain="ethereum"
-          clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
-        >
-          {children}
-        </ThirdwebProvider>
-        {/* </QueryProvider> */}
+        <QueryProvider>
+          <ThirdwebProvider
+            activeChain="sepolia"
+            clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
+          >
+            {children}
+          </ThirdwebProvider>
+        </QueryProvider>
       </body>
     </html>
   );

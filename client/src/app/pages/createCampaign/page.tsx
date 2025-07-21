@@ -1,19 +1,25 @@
 "use client";
 // pages/create-campaign.tsx
 import { useState } from "react";
-import { useContract, useContractWrite, ConnectWallet } from "@thirdweb-dev/react";
+import { useContract, useContractWrite, ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 
 export default function CreateCampaign() {
-  const contractAddress = "0x7104Ffa2e8547C37336AE3a089169B9efb5F7f08"; // Your contract address
+  const contractAddress = "0x7104Ffa2e8547C37336AE3a089169B9efb5F7f08";
   const { contract } = useContract(contractAddress);
+  const address = useAddress();
 
   const { mutateAsync: createCampaign, status } = useContractWrite(
     contract,
-    "createCampaign" // Replace with your actual contract method
+    "createCampaign"
   );
-  const isLoading = status === "loading";
+
+  const contractLoading = !contract;
+  const mutationLoading = status === "loading";
+  const isLoading = contractLoading || mutationLoading;
 
   const [form, setForm] = useState({
+    id: "",
     title: "",
     description: "",
     image: "",
@@ -28,34 +34,60 @@ export default function CreateCampaign() {
   };
 
   const handleSubmit = async () => {
+    if (!contract) {
+      alert("Contract not loaded yet. Please try again in a moment.");
+      return;
+    }
     try {
       const deadlineTimestamp = new Date(form.deadline).getTime();
 
       const data = await createCampaign({
         args: [
-          // Replace with wallet address dynamically if needed
-          "0xYourWalletAddress", // 👈 ideally use connected wallet address
-          form.title,
-          form.description,
-          form.image,
-          Number(form.target),
-          deadlineTimestamp,
+          Number(form.id),           // _id
+          form.title,                // _title
+          form.description,          // _description
+          ethers.utils.parseEther(form.target), // _targetAmount in wei
+          deadlineTimestamp,         // _deadline
+          form.image,                // _imageUrl
         ],
       });
 
       console.log("Success:", data);
       alert("Campaign created successfully!");
+      setForm({
+        id: "",
+        title: "",
+        description: "",
+        image: "",
+        target: "",
+        deadline: "",
+      });
     } catch (err) {
       console.error("Error:", err);
-      alert("Error creating campaign");
+      const errorMessage =
+        err && typeof err === "object" && "message" in err
+          ? (err as { message: string }).message
+          : String(err);
+      alert("Error creating campaign: " + errorMessage);
     }
   };
+
+  console.log("contract:", contract);
+  console.log("status:", status);
 
   return (
     <div style={{ padding: "2rem" }}>
       <ConnectWallet />
       <h1>Create Campaign</h1>
 
+      <input
+        type="number"
+        name="id"
+        placeholder="Campaign ID"
+        value={form.id}
+        onChange={handleChange}
+        style={{ display: "block", margin: "1rem 0", padding: "0.5rem" }}
+      />
       <input
         type="text"
         name="title"
@@ -101,7 +133,11 @@ export default function CreateCampaign() {
       />
 
       <button onClick={handleSubmit} disabled={isLoading}>
-        {isLoading ? "Creating..." : "Create Campaign"}
+        {contractLoading
+          ? "Loading contract..."
+          : mutationLoading
+          ? "Creating..."
+          : "Create Campaign"}
       </button>
     </div>
   );
