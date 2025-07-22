@@ -5,7 +5,7 @@ import { useContract, useContractWrite, ConnectWallet, useAddress } from "@third
 import { ethers } from "ethers";
 
 export default function CreateCampaign() {
-  const contractAddress = "0x7104Ffa2e8547C37336AE3a089169B9efb5F7f08";
+  const contractAddress = "0x414Be101d6eb888C1bE13fFc0Ec7D8025735ad10";
   const { contract } = useContract(contractAddress);
   const address = useAddress();
 
@@ -43,12 +43,12 @@ export default function CreateCampaign() {
 
       const data = await createCampaign({
         args: [
-          Number(form.id),           // _id
-          form.title,                // _title
-          form.description,          // _description
-          ethers.utils.parseEther(form.target), // _targetAmount in wei
-          deadlineTimestamp,         // _deadline
-          form.image,                // _imageUrl
+          Number(form.id),           
+          form.title,                
+          form.description,          
+          ethers.utils.parseEther(form.target), 
+          deadlineTimestamp,        
+          form.image,               
         ],
       });
 
