@@ -14,12 +14,28 @@ contract CrowdContract {
         uint256 totalDonations;
     }
 
+    // Add event for campaign creation
+    event CampaignCreated(
+        uint256 id,
+        address owner,
+        string title,
+        string description,
+        uint256 targetAmount,
+        uint256 deadline,
+        string imageUrl
+    );
+
+    // Add event for donation
+    event DonationReceived(
+        uint256 campaignId,
+        address donor,
+        uint256 amount
+    );
+
     mapping(uint256 => Campaign) public campaigns;
     uint256 NumberOfCampaigns = 0;
 
-
     // function to create a new campaign
-
     function createCampaign(
         uint256 _id,
         string memory _title,
@@ -39,6 +55,17 @@ contract CrowdContract {
         newCampaign.currentAmount = 0;
         newCampaign.deadline = _deadline;
         newCampaign.imageUrl = _imageUrl;
+
+        // Emit event after campaign creation
+        emit CampaignCreated(
+            _id,
+            msg.sender,
+            _title,
+            _description,
+            _targetAmount,
+            _deadline,
+            _imageUrl
+        );
     }
 
     //function to donate to a campaign
@@ -51,8 +78,10 @@ contract CrowdContract {
         campaign.donators.push(msg.sender);
         campaign.currentAmount += msg.value;
         campaign.totalDonations += msg.value;
-    }
 
+        // Emit event after donation
+        emit DonationReceived(_id, msg.sender, msg.value);
+    }
 
     //function to get details of donators of a campaign and the donations as arrays
     function getDonators(uint256 _id) public view returns (address[] memory, uint256) {
@@ -60,7 +89,6 @@ contract CrowdContract {
         return (campaign.donators, campaign.totalDonations);
     }
     //function that returns an array of all campaigns and total number of campaigns
-
 
     function getAllCampaigns() public view returns (Campaign[] memory, uint256) {
         
