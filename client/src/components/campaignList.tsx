@@ -1,10 +1,11 @@
 import { useCampaigns } from '@/hooks/useCampaigns';
 import CampaignCard from './campaignCard';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function CampaignList() {
   const { data: campaigns, isLoading, error } = useCampaigns();
 
-  if (isLoading) return <div>Loading campaigns...</div>;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error loading campaigns: {error instanceof Error ? error.message : String(error)}</div>;
 
   return (
