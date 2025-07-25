@@ -13,7 +13,7 @@ type Campaign = {
 export default function CampaignCard({ campaign }: { campaign: Campaign }) {
   // Hardcoded for now
   const raised = 800;
-  const target = 10000;
+  const target = Number(campaign.target);
   const percent = Math.round((raised / target) * 100);
   const initiator = campaign.creator
     ? campaign.creator.slice(0, 6) + '...' + campaign.creator.slice(-4)
