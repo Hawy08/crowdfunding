@@ -39,24 +39,26 @@ export default function CampaignList() {
   };
 
   return (
-    <div className="w-full px-4">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-        Trending <span className="underline">Pamoja</span> fundraisers
-      </h2>
-      
-      <div className="max-w-6xl mx-auto">
-        {campaigns && campaigns.length > 0 ? (
-          <Slider {...settings}>
-            {campaigns.map((campaign) => (
-              <div key={campaign.id} className="px-2">
-                <CampaignCard campaign={campaign} />
-              </div>
-            ))}
-          </Slider>
-        ) : (
-          <div className="text-center text-gray-500">No campaigns found.</div>
-        )}
+    <section className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="w-full px-4 py-12">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+          Trending <span className="underline">Pamoja</span> fundraisers
+        </h2>
+        
+        <div className="max-w-6xl mx-auto">
+          {campaigns && campaigns.length > 0 ? (
+            <Slider {...settings}>
+              {campaigns.map((campaign) => (
+                <div key={campaign.id} className="px-2">
+                  <CampaignCard campaign={campaign} />
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            <div className="text-center text-gray-500">No campaigns found.</div>
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

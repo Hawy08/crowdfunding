@@ -40,7 +40,7 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
         {/* Title and initiator */}
         <div className="p-6 pb-2">
           <div className=" bg-opacity-60 rounded-lg px-4 py-2 inline-block">
-            <h2 className="text-2xl font-bold text-white mb-1">{campaign.title}</h2>
+            <h2 className="text-2xl font-bold mb-1">{campaign.title}</h2>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-sm text-gray-200">Initiated By:</span>
               <input

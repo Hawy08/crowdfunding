@@ -2,7 +2,7 @@
 
 export default function HomeBanner() {
   return (
-    <div className="bg-gradient-to-br from-green-50 to-indigo-100 min-h-[600px] flex items-center justify-center">
+    <section className="bg-white min-h-screen flex items-center justify-center">
       <div className="text-center px-6 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
           Fundraising
@@ -45,6 +45,6 @@ export default function HomeBanner() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 } 
