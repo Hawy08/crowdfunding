@@ -39,15 +39,15 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
       <div className="relative z-20 flex flex-col h-full">
         {/* Title and initiator */}
         <div className="p-6 pb-2">
-          <div className=" bg-opacity-60 rounded-lg px-4 py-2 inline-block">
+          <div className=" bg-white bg-opacity-90 rounded-xl p-3">
             <h2 className="text-2xl font-bold mb-1">{campaign.title}</h2>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-sm text-gray-200">Initiated By:</span>
+              <span className="text-sm">Initiated By:</span>
               <input
                 type="text"
                 value={campaign.creator ? `${campaign.creator.slice(0, 6)}...${campaign.creator.slice(-4)}` : ''}
                 readOnly
-                className="bg-transparent text-xs text-gray-200 border-none p-0 m-0 focus:outline-none w-[120px] cursor-pointer select-all"
+                className="bg-transparent text-xs  border-none p-0 m-0 focus:outline-none w-[120px] cursor-pointer select-all"
                 onFocus={e => e.target.select()}
               />
               <button
